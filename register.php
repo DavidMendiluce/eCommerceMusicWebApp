@@ -1,0 +1,107 @@
+<?php
+    session_start();
+    require 'inc/header.php';
+
+
+    if(isset($_SESSION['sesion'])) {
+      if($_SESSION['role'] == "admin") {
+        header('Location: Admin/');
+      } else if(isset($_SESSION['sesion'])) {
+        header('Location: index.php');
+      }
+    }
+
+
+    $msg = "";
+
+    if(isset($_POST['submit'])) {
+
+      require 'config/connection.php';
+      if($mysqli) {
+        echo "Connection estblished";
+      } else {
+        echo "error connectiong";
+      }
+
+      $name = $mysqli->real_escape_string($_POST['user_name']);
+      $email = $mysqli->real_escape_string($_POST['user_email']);
+      $pas = $mysqli->real_escape_string($_POST['user_password']);
+      $cPas = $mysqli->real_escape_string($_POST['c_password']);
+
+      if($pas != $cPas) {
+        $msg = "Please check your Passwords";
+      }
+      else {
+        $hash = password_hash($pas, PASSWORD_BCRYPT);
+        $mysqli->query("INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$hash', 'user')");
+        $msg = "You have been registered";
+
+      }
+    }
+ ?>
+
+
+
+  <div class="main">
+    <!-- nav menu -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#"></a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/signup">Sign Up</a></li>
+          </ul>
+        </div>
+    <!--/ .nav collapse -->
+      </div>
+    </div>
+
+
+    <?php echo 'Current PHP version: ' . phpversion();
+    // prints e.g. '2.0' or nothing if the extension isn't enabled
+    echo phpversion('tidy');?>
+    <!-- form -->
+    <h2 align="center">Login Php</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+          <div class="error">
+            <span>Wrong username or password, please try again</span>
+          </div>
+          <form method="post" action="register.php" id="formrg">
+            <fieldset>
+              <h3 align="center">Register</h3>
+              <?php if($msg != "") echo $msg . "<br><br>"; ?>
+              <br/>
+              <div class="form-group">
+                <input type="text" class="form-conytrol input-lg" placeholder="Username" name="user_name" required focus>
+              </div>
+              <div class="form-group">
+                <input type="email" id="emailForm" class="form-conytrol input-lg" placeholder="Email" name="user_email" required focus>
+              </div>
+              <div class="form-group">
+                <input type="password" pattern="[A-Za-z0-9_-]{1,15}" class="form-conytrol input-lg" placeholder="Password" name="user_password" required focus>
+              </div>
+              <div class="form-group">
+                <input type="password" pattern="[A-Za-z0-9_-]{1,15}" class="form-conytrol input-lg" placeholder="ConfPassword" name="c_password" required focus>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <span>Already a user?</span><a href="login.php">Login</a>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <button name="submit" type="submit" id="btnrg" class="btn btn-lg btn-success btn-block">Sign Up</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+<?php require 'inc/footer.php'; ?>

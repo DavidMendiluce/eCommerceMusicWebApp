@@ -1,0 +1,139 @@
+.error {
+  visibility: hidden;
+  background-color: red;
+  border: 1px solid rgba(250, 72, 72,0.9);
+  border-radius: 5px;
+  background-color: rgba(250, 72, 72,0.5);
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+
+.error span {
+  color: rgb(36, 36, 36);
+  padding-left: 10vh;
+
+}
+
+html {
+  width:100%;
+  height:100%;
+}
+
+body {
+  background: url("../img/goldBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  color: white !important;
+}
+
+#logo {
+  height: 50px !important;
+  width: 100px !important;
+}
+
+#config {
+
+}
+
+#configMenu {
+  display: none;
+}
+
+#loginIndex {
+  padding-left: 165vh;
+}
+
+#signupIndex {
+
+}
+
+#playListRow {
+  margin-top: -30vh;
+  margin-left: 30vh;
+  padding: 0vh 0vh  !important;
+  background-color: rgba(15, 15, 15, 0);
+  padding-bottom: 1vh !important;
+}
+
+#playListSongs {
+  padding-top: 1vh;
+  padding-left: 2vh;
+  padding-bottom: 1vh;
+  background-color: rgba(15, 15, 15, 0.8);
+
+}
+
+.songInfo {
+  width: 20vh;
+}
+
+.songInfo h4 {
+  font-size: 2vh;
+  color: white;
+}
+
+.stitle {
+  padding-left: 2vh;
+  width: 30vh;
+}
+
+.imgMin {
+  border: 10px;
+  border-color: red;
+}
+
+.searchBox {
+  width: 137vh;
+  height: 30vh;
+  padding-left: 20vh;
+  background-color: rgba(15, 15, 15, 0.8);
+}
+
+.currentImg {
+  width: 30vh;
+  height: 30vh;
+}
+
+.tab-arrow:hover {
+  cursor: pointer;
+}
+
+
+.orderItems div {
+  padding-left: 0vh;
+
+}
+
+#orderList {
+  padding-left: 10.8vh;
+  background-color: rgba(15, 15, 15, 0.9);
+  width: 137vh;
+}
+
+
+.containerMain {
+
+  margin-top: 5vh;
+  margin-left: 15vh;
+  width: 70%;
+}
+
+.imgContainer {
+  width: 137vh;
+  cursor: pointer;
+  padding-bottom: 2vh;
+}
+
+.imgContainer:hover {
+  opacity: 0.7;
+}
+
+
+.faded {
+    opacity: 0.7;
+}
+
+.opaque {
+    opacity: 1;
+}
