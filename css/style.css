@@ -36,6 +36,40 @@ body {
 
 }
 
+/*Chrome*/
+
+input[type='range'] {
+
+      width: 80px;
+      -webkit-appearance: none;
+      background-color: #e3e3e3;
+      outline: none;
+      border-radius: 5vh;
+    }
+
+    input[type='range']::-webkit-slider-runnable-track {
+      height: 5px;
+      -webkit-appearance: none;
+      color: #e3e3e3;
+      border-radius: 5vh;
+      margin-top: -1px;
+      outline: none;
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+      width: 20px;
+      -webkit-appearance: none;
+      height: 20px;
+      cursor: pointer;
+      background: #434343;
+      border: 20px;
+      border-radius: 5vh;
+      margin-top: -8px;
+      outline: none;
+    }
+
+
+
 #configMenu {
   display: none;
 }
@@ -60,8 +94,55 @@ body {
   padding-top: 1vh;
   padding-left: 2vh;
   padding-bottom: 1vh;
+  width: 150vh;
   background-color: rgba(15, 15, 15, 0.8);
 
+}
+
+#songPrice {
+  position: relative;
+  left: 5vh;
+  bottom: 1.5vh;
+  width: 10vh;
+  border-bottom: 1px solid grey;
+}
+
+#songPrice h3 {
+  position: relative;
+  left: 1vh;
+}
+
+.price {
+  position: relative;
+  left: 2.5vh;
+}
+
+#purchaseSong {
+  position: relative;
+  left: 124vh;
+  bottom: 106.4vh;
+  border-left: 1px solid grey;
+  padding-top: 2vh;
+  background-color: rgba(15, 15, 15, 0.8);
+  width: 19.6vh;
+  border-bottom: 1px solid grey;
+  height: 10.63vh;
+}
+
+#purchaseSong img {
+  cursor: pointer;
+}
+
+#buyItem{
+  position: relative;
+  bottom: 0vh;
+  left: 5vh;
+}
+
+#downloadItem {
+  position: relative;
+  left: 8vh;
+  bottom: 0vh;
 }
 
 .songInfo {
@@ -73,9 +154,50 @@ body {
   color: white;
 }
 
+
 .stitle {
   padding-left: 2vh;
+  width: 25vh;
+}
+
+.sgenre {
+  padding-left: 11.5vh;
+}
+
+#genreOrder {
+  padding-left: 10vh;
+}
+
+.sdate {
+  padding-left: 11.5vh;
   width: 30vh;
+}
+
+#dateOrder {
+  padding-left: 10vh;
+}
+
+.slength {
+  padding-left: 2vh;
+}
+#lengthOrder {
+  padding-left: 10vh;
+}
+
+#bpmOrder {
+  padding-left: 10vh;
+}
+
+.sbpm {
+  padding-left: 3.5vh;
+}
+
+#keyOrder {
+  padding-left: 10vh;
+}
+
+.skey {
+  padding-left: 4vh;
 }
 
 .imgMin {
@@ -84,15 +206,17 @@ body {
 }
 
 .searchBox {
-  width: 137vh;
+  width: 145.2vh;
   height: 30vh;
   padding-left: 20vh;
   background-color: rgba(15, 15, 15, 0.8);
 }
 
 .currentImg {
+  position: relative;
   width: 30vh;
   height: 30vh;
+  left: 0vh;
 }
 
 .tab-arrow:hover {
@@ -100,7 +224,8 @@ body {
 }
 
 
-.orderItems div {
+.orderItems {
+  width: 145.2vh;
   padding-left: 0vh;
 
 }
@@ -108,7 +233,7 @@ body {
 #orderList {
   padding-left: 10.8vh;
   background-color: rgba(15, 15, 15, 0.9);
-  width: 137vh;
+  width: 160vh;
 }
 
 
@@ -130,10 +255,119 @@ body {
 }
 
 
-.faded {
-    opacity: 0.7;
+
+.faded :not(img) {
+    opacity: 0.8;
 }
 
 .opaque {
     opacity: 1;
+}
+
+.player {
+  background: radial-gradient( #e8e8e8, #8c8c8c);
+  position: fixed;
+  right: 0%;
+  bottom: 0%;
+  border-radius: 30vh;
+  width: 202vh;
+  height: 15vh;
+}
+
+.pLeft {
+  position: relative;
+  top: -19vh;
+  left: 15vh;
+}
+
+.pRight {
+  position: relative;
+  right: 2vh;
+  top: -4vh;
+}
+
+.pLeft img {
+  position: relative;
+  right: 10vh;
+  top: 9vh;
+}
+
+.pMiddle {
+  position: relative;
+  top: -29vh;
+}
+
+.songDuration {
+  position: relative;
+  top: -28vh;
+}
+
+#minDuration {
+  position: relative;
+  top: -2.5vh;
+  right: 5vh;
+  width: 3vh;
+}
+
+#maxDuration {
+  position: relative;
+  top: -5.8vh;
+  left: 101vh;
+}
+
+
+#duration_slider{
+  width: 100vh;
+}
+
+.pMiddle button {
+  background-color: #e1e1e1;
+  width: 8vh;
+  height: 8vh;
+  border: 1px solid #c8ab4d;
+  border-radius: 10vh;
+  outline: none;
+}
+
+.pMiddle button:hover {
+  background-color: #f3f3f3;
+  cursor: pointer;
+}
+
+
+.fa-play {
+color: black;
+}
+
+.pMiddle button:hover>.fa-play {
+  color: black;
+}
+
+.pMiddle button:hover>.fa-step-forward {
+  color: black;
+}
+
+.pMiddle button:hover>.fa-step-backward {
+  color: black;
+}
+
+.fa-pause {
+  color: #838383;
+}
+
+.pMiddle button:hover>.fa-pause {
+  color: black;
+}
+
+.fa-step-backward {
+color: #838383;
+}
+
+.fa-step-forward {
+color: #838383;
+}
+
+#play {
+  margin-left: 3vh;
+  margin-right: 3vh;
 }
