@@ -370,7 +370,7 @@ app.controller('playListController', function($scope, $http) {
 
 
     //loadingSongs
-    $scope.loadProduct = function(){
+    $scope.loadSongs = function(){
       $http({
         method: 'GET',
         url: 'fetchPlaylist.php'
@@ -383,6 +383,9 @@ app.controller('playListController', function($scope, $http) {
     };
 
 });
+
+  //Adding song in the admin page
+
 
 //format timestamp to date
 app.filter('timestampToISO', function() {

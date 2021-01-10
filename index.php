@@ -31,9 +31,9 @@
 
 <!--<h1 id="duration">E</h1>-->
  <!-- song container-->
- <div ng-app="myApp" ng-controller="playListController" class="containerMain row d-flex flex-column">
+ <div id="playlistPage" ng-app="myApp" ng-controller="playListController" class="containerMain row d-flex flex-column">
     <img class="border currentImg" src="img/{{currentImage}}"/>
-    <div class="container align-self-end" id="playListRow" ng-init="loadProduct()">
+    <div class="container align-self-end" id="playListRow" ng-init="loadSongs()">
       <div class="searchBox">
       </div>
       <!--tags to order the songs by title, genre, date, length, speed and key-->
@@ -46,12 +46,12 @@
           <h5 id="dateOrder" class="align-self-center songInfo">Date<img class="tab-arrow" id="orderDate" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
           <h5 id="lengthOrder" class="align-self-center songInfo">Length<img class="tab-arrow" id="orderLength" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
           <h5 id="keyOrder" class="align-self-center songInfo">Key<img class="tab-arrow" id="orderKey" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
-          <h5 id="keyOrder" class="align-self-center songInfo">Precio<img class="tab-arrow" id="orderKey" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
+          <h5 id="keyOrder" class="align-self-center songInfo">Price<img class="tab-arrow" id="orderKey" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
       </div>
     </div>
     <!--  -->
       <div class="row d-flex flex-column">
-        <div class="col-3 md-3 d-flex flex-row" ng-init=" ($first) ? getCurrentElement(song) : ''" ng-repeat="song in (filteredItems = (songs | orderBy:[orderName])) as orderedItems " ng-class="{'faded': song.id === selected}" >
+        <div class="col-3 md-3 d-flex flex-row" ng-init=" ($first) ? getCurrentElement(song) : ''" ng-repeat="song in (filteredItems = (songs | orderBy:[orderName])) | limitTo: 10 as orderedItems" ng-class="{'faded': song.id === selected}" >
           <div id="playListSongs" ng-click="getCurrentElement(song, $index); clickItemPlayer(song)"  class="imgContainer d-flex flex-row border-bottom">
             <img ng-src="img/{{ song.image }}" class="border img-responsive" width="80vh" height="80vh"/><br />
             <div id = "title" class="align-self-center songInfo stitle pointer">
@@ -73,8 +73,8 @@
         </div>
       </div>
 
-  <div class="col-3 md-3 d-flex flex-row" ng-repeat="song in songs | orderBy:[orderName]" >
-    <div id="purchaseSong" ng-click="getCurrentElement(song)" class="align-self-center songInfo">
+  <div id="purchaseSong" class="col-3 md-3 d-flex flex-row" ng-repeat="song in songs | orderBy:[orderName]" >
+    <div  ng-click="getCurrentElement(song)" class="align-self-center songInfo">
         <div id="songPrice">
           <h3 class="price text">{{song.price | currency}}</h3>
         </div>
