@@ -66,7 +66,7 @@ bottom: 0;
 
 #logo {
   height: 50px !important;
-  width: 100px !important;
+  width: 78px !important;
 }
 
 #config {
@@ -139,7 +139,7 @@ input[type='range'] {
 
 #songPrice {
   position: relative;
-  left: 5vh;
+  left: 4vh;
   bottom: 1.5vh;
   width: 10vh;
   border-bottom: 1px solid grey;
@@ -157,8 +157,8 @@ input[type='range'] {
 
 #purchaseSong {
   position: relative;
-  left: 124vh;
-  bottom: 106.4vh;
+  left: 125.5vh;
+  bottom: 95.8vh;
   border-left: 1px solid grey;
   padding-top: 2vh;
   background-color: rgba(15, 15, 15, 0.8);
@@ -173,14 +173,14 @@ input[type='range'] {
 
 #buyItem{
   position: relative;
-  bottom: 0vh;
-  left: 5vh;
+  bottom: 0.4vh;
+  left: 4vh;
 }
 
 #downloadItem {
   position: relative;
-  left: 8vh;
-  bottom: 0vh;
+  left: 7vh;
+  bottom: 0.4vh;
 }
 
 .songInfo {

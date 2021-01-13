@@ -51,7 +51,7 @@
     </div>
     <!--  -->
       <div class="row d-flex flex-column">
-        <div class="col-3 md-3 d-flex flex-row" ng-init=" ($first) ? getCurrentElement(song) : ''" ng-repeat="song in (filteredItems = (songs | orderBy:[orderName])) | limitTo: 10 as orderedItems" ng-class="{'faded': song.id === selected}" >
+        <div class="col-3 md-3 d-flex flex-row" ng-init=" ($first) ? getCurrentElement(song) : ''" ng-repeat="song in (filteredItems = (songs | orderBy:[orderName])) | limitTo: 9 as orderedItems" ng-class="{'faded': song.id === selected}" >
           <div id="playListSongs" ng-click="getCurrentElement(song, $index); clickItemPlayer(song)"  class="imgContainer d-flex flex-row border-bottom">
             <img ng-src="img/{{ song.image }}" class="border img-responsive" width="80vh" height="80vh"/><br />
             <div id = "title" class="align-self-center songInfo stitle pointer">
@@ -73,7 +73,7 @@
         </div>
       </div>
 
-  <div id="purchaseSong" class="col-3 md-3 d-flex flex-row" ng-repeat="song in songs | orderBy:[orderName]" >
+  <div id="purchaseSong" class="col-3 md-3 d-flex flex-row" ng-repeat="song in (filteredItems = (songs | orderBy:[orderName])) | limitTo: 9 as orderedItems" >
     <div  ng-click="getCurrentElement(song)" class="align-self-center songInfo">
         <div id="songPrice">
           <h3 class="price text">{{song.price | currency}}</h3>

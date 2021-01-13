@@ -20,7 +20,7 @@
     echo '<h1>Bienvenido ,'.$username.' </h1>';
     echo 'role: '.$role;
   } else {
-    echo 'error';
+    header('Location: ../index.php');
   }
     ?>
   <a href="../logout.php">logout</a>
@@ -81,7 +81,7 @@
           <form method="post" ng-submit="submitForm()">
           <div class="modal-header">
            <h4 class="modal-title">{{modalTitle}}</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <button type="button" ng-click="reload()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
             <div id="errorMessage" class="alert alert-danger
@@ -132,7 +132,7 @@
           </div>
           <div class="modal-footer">
             <input type="submit" name="submit" id="submit" class="btn btn-info" value="{{submit_button}}" />
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close
+            <button ng-click="reload()" type="button" class="btn btn-default" data-dismiss="modal">Close
             </button>
           </div>
          </form>

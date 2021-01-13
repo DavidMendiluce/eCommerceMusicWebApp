@@ -99,7 +99,9 @@ app.controller('playListController', function($scope, $http) {
               $scope.getCurrentElement = getCurrentElement;
 
               function getCurrentElement(song, $index) {
-
+                console.log(song.title);
+                console.log(song.id);
+                $scope.firstSong = song;
                 if($index >=0) {
                 counter = 0;
                 counterClick = 1;
@@ -271,7 +273,7 @@ app.controller('playListController', function($scope, $http) {
               }
 
 
-
+              var playing_song = false;
 
 
 
@@ -279,8 +281,12 @@ app.controller('playListController', function($scope, $http) {
 
               //play button functionallity
               $scope.itemPlayer = function(song) {
-
-                $scope.mp3 = song.mp3;
+                if(song == null) {
+                  console.log($scope.firstSong)
+                  song = $scope.firstSong;
+                } else {
+                  $scope.mp3 = song.mp3;
+                }
                 if(playing_song==false) {
                   playMusic(song.mp3);
                   play.innerHTML = '<i class="fa fa-pause fa-lg"></i>';

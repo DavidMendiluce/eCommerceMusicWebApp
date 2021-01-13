@@ -25,7 +25,10 @@ app.controller('crudController', function($scope, $http, $timeout) {
     $scope.openModal();
   };
 
-
+  $scope.reload = function() {
+    window.location.reload();
+    console.log("reloading");
+  }
 
   //Open modal template which can be the form to add a song or to edit song depending on the value of action
   $scope.submitForm = function(){
