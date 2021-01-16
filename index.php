@@ -45,8 +45,8 @@
           <h5 id="genreOrder" class="align-self-center songInfo">Genre<img class="tab-arrow" id="orderGenre" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
           <h5 id="dateOrder" class="align-self-center songInfo">Date<img class="tab-arrow" id="orderDate" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
           <h5 id="lengthOrder" class="align-self-center songInfo">Length<img class="tab-arrow" id="orderLength" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
-          <h5 id="keyOrder" class="align-self-center songInfo">Key<img class="tab-arrow" id="orderKey" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
-          <h5 id="keyOrder" class="align-self-center songInfo">Price<img class="tab-arrow" id="orderKey" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
+          <h5 id="keyOrder" class="align-self-center songInfo">Key/BPM<img class="tab-arrow" id="orderKey" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
+          <h5 id="priceOrder" class="align-self-center songInfo">Price<img class="tab-arrow" id="orderPrice" src="img/arrowWhiteDown.png" style="margin-left: 1vh" width="10vh" height="10vh" /></h5>
       </div>
     </div>
     <!--  -->
@@ -92,9 +92,9 @@
       <!-- right part -->
       <div class="pRight align-self-end">
         <img id="track_image">
-        <p id="volume_show">90</p>
+        <p id="volume_show" style="visibility: hidden">90</p>
 
-        <i class="fa fa-volume-up" aria-hidden="true" id="volume_icon" onclick="mute_sound()"></i>
+        <i class="fa fa-volume-up fa-lg" aria-hidden="true" id="volume_icon" onclick="mute_sound()"></i>
         <input type="range" min="0" max="100" value="90" id="volume_change">
 </div>
       <!-- left part -->

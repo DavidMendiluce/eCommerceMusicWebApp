@@ -203,7 +203,7 @@ input[type='range'] {
 }
 
 #genreOrder {
-  padding-left: 10vh;
+  padding-left: 11vh;
 }
 
 .sdate {
@@ -212,14 +212,15 @@ input[type='range'] {
 }
 
 #dateOrder {
-  padding-left: 10vh;
+  padding-left: 11vh;
 }
 
 .slength {
   padding-left: 2vh;
 }
 #lengthOrder {
-  padding-left: 10vh;
+  padding-left: 12vh;
+  width: 25vh;
 }
 
 #bpmOrder {
@@ -232,6 +233,12 @@ input[type='range'] {
 
 #keyOrder {
   padding-left: 10vh;
+  width: 23vh;
+}
+
+#priceOrder {
+  position: relative;
+  left: 7vh;
 }
 
 .skey {
@@ -420,4 +427,45 @@ color: #838383;
 
 #crudmodal #submit {
   color: grey !important;
+}
+
+#volume_icon {
+  position: relative;
+  top: 0.3vh;
+}
+
+/*Laptop screens*/
+@media only screen
+and (min-width: 1030px)
+and (max-width: 1366px)  {
+
+  #logoPlayer {
+    margin-top: 0vh;
+    margin-bottom: 0vh;
+  }
+
+  .songDuration {
+    position: relative;
+    top: -29.5vh;
+  }
+
+  #loginIndex {
+    padding-left: 145vh;
+  }
+
+  .player {
+    width: 194vh;
+  }
+
+  #purchaseSong {
+    bottom: 122.9vh;
+    left: 119.9vh;
+    width: 25.4vh;
+    height: 13.63vh;
+  }
+
+  #playListSongs {
+    width: 120vh;
+
+  }
 }
