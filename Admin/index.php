@@ -17,8 +17,6 @@
   if(isset($_SESSION['sesion'])) {
     $username = $_SESSION['sesion'];
     $role =$_SESSION['role'];
-    echo '<h1>Bienvenido ,'.$username.' </h1>';
-    echo 'role: '.$role;
   } else {
     header('Location: ../index.php');
   }

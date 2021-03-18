@@ -18,5 +18,4 @@ while($row = $statement->fetch(PDO::FETCH_ASSOC))
 
 //Need to add JSON_NUMERIC_CHECK to avoid number being treated as strings
 echo json_encode($data,JSON_NUMERIC_CHECK);
-
  ?>

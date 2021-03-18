@@ -86,7 +86,10 @@ $(document).ready(function() {
         toUser: "admin",
         messsage: $("message").val("")
       },
-      dataType: "text"
+      dataType: "text",
+      success:function(data) {
+        $("message").val();
+      }
     });
   });
 });

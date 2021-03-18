@@ -3,7 +3,6 @@ app.controller('playListController', function($scope, $http, $window) {
 
 
 
-
   //ordering songs
   var order = 'title';
   var counterTitle = 0;
