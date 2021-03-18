@@ -1,4 +1,7 @@
-app.controller('playListController', function($scope, $http) {
+app.controller('playListController', function($scope, $http, $window) {
+
+
+
 
 
   //ordering songs
@@ -26,6 +29,37 @@ app.controller('playListController', function($scope, $http) {
     $scope.$apply();
 
     });
+
+    $scope.isSessionStarted = false;
+    //check If a User Is Logged In
+    $scope.checkSession = function() {
+      $scope.isSessionStarted = true;
+    }
+
+
+    //Download songs that are free
+    $scope.downloadSong = function(song) {
+      if(song.type == 'download') {
+        var filePath = "songs/" + song.mp3;
+        window.location.href = filePath;
+        console.log(filePath);
+        var link = document.createElement('a');
+      if (typeof link.download === 'string') {
+          link.href = filePath;
+          link.setAttribute('download', song.title);
+
+          //simulate click
+          link.click();
+      }
+    } else {
+      console.log("If you want this song you have to buy it");
+
+
+    }
+
+      };
+    //
+
       //orderByGenre
       $('#orderGenre').on('click', function(){
         if(counterGenre == 0) {
@@ -99,8 +133,7 @@ app.controller('playListController', function($scope, $http) {
               $scope.getCurrentElement = getCurrentElement;
 
               function getCurrentElement(song, $index) {
-                console.log(song.title);
-                console.log(song.id);
+
                 $scope.firstSong = song;
                 if($index >=0) {
                 counter = 0;
@@ -197,7 +230,6 @@ app.controller('playListController', function($scope, $http) {
                   counter++;
                   $scope.i = songIndex + counter;
                   $scope.z = songIndex + counter - 1;
-                  console.log(song);
 
                   currentTitle = song.title;
                   $scope.currentTitle = currentTitle;
@@ -242,7 +274,6 @@ app.controller('playListController', function($scope, $http) {
                 }
 
 
-                    console.log(song);
 
                     currentTitle = song.title;
                     $scope.currentTitle = currentTitle;
@@ -282,7 +313,6 @@ app.controller('playListController', function($scope, $http) {
               //play button functionallity
               $scope.itemPlayer = function(song) {
                 if(song == null) {
-                  console.log($scope.firstSong)
                   song = $scope.firstSong;
                 } else {
                   $scope.mp3 = song.mp3;
@@ -311,6 +341,7 @@ app.controller('playListController', function($scope, $http) {
               }
 
               function playMusic(path) {
+                console.log(path);
                 audio.src = 'songs/'+path;
                 audio.play();
               }
@@ -334,10 +365,13 @@ app.controller('playListController', function($scope, $http) {
 
 
               //change volume
-              let volume = document.querySelector("#volume_change");
-              volume.addEventListener("change", function(e) {
-                audio.volume = e.currentTarget.value / 100;
-              });
+              $scope.initPlayer = function() {
+                let volume = document.querySelector("#volume_change");
+                volume.addEventListener("change", function(e) {
+                  audio.volume = e.currentTarget.value / 100;
+                });
+              }
+
 
               //duration slider functionality
               $("#duration_slider").on("input",function(e){
@@ -360,8 +394,6 @@ app.controller('playListController', function($scope, $http) {
                     }
                     $('#minDuration').html(mMin + '.' + sMin);
                     $('#maxDuration').html(mMax + '.' + sMax);
-                    console.log(mMin);
-                    console.log(mMax);
                     var valueSlider = 0;
                     if (audio.currentTime > 0) {
                       valueSlider = (audio.currentTime/audio.duration);
@@ -381,14 +413,253 @@ app.controller('playListController', function($scope, $http) {
         method: 'GET',
         url: 'fetchPlaylist.php'
       }).then(function(data) {
-        console.log(data, 'res');
           $scope.songs = data.data;
       }, function(error) {
         console.log(error, 'cant get data.');
       });
     };
 
+    //shoppingCart
+    $scope.buySong = function(song) {
+      if($scope.isSessionStarted == true) {
+        $scope.addtoCart(song);
+        $window.location.reload();
+      }
+      else {
+        $window.location.href = './login.php';
+      }
+    }
+
+    $scope.carts = [];
+
+    $scope.cartQuantity = 1;
+
+    $scope.fetchCart = function(){
+      $http({
+        method: 'GET',
+        url: 'fetch_cart.php'
+      }).then(function(data) {
+            $scope.carts = data.data;
+
+      }, function(error) {
+
+      });
+    };
+
+    $scope.setQuantity = function() {
+      var totalProductQuantity = 0;
+
+      for(var count = 0; count < $scope.carts.length; count++)
+      {
+         var item = $scope.carts[count];
+         totalProductQuantity = totalProductQuantity + (item.product_quantity);
+      }
+      return totalProductQuantity;
+    };
+
+    $scope.setTotals = function() {
+        var total = 0;
+
+        for(var count = 0; count < $scope.carts.length; count++)
+        {
+           var item = $scope.carts[count];
+           total = total + (item.product_quantity * item.product_price);
+        }
+        return total;
+    };
+
+
+    $scope.product;
+    $scope.prodQuantity;
+    $scope.addtoCart = function(song){
+
+        /*$http({
+          method: "POST",
+          url: "add_item.php",
+          data: product
+        }).then(function(data) {
+          console.log(data);
+            $scope.fetchCart();
+        }, function(error) {
+          console.log(error, "error");
+        });*/
+        if($scope.product) {
+
+          for(var i = 0; $scope.carts.length; i++) {
+            var item = $scope.carts[i];
+            if(song.id = item.product_id) {
+              $scope.prodQuantity = item.product_quantity + 1;
+            }
+          }
+        } else {
+        $scope.prodQuantity = 1;
+      }
+        $scope.productID = song.id;
+        $scope.productTitle = song.title;
+        $scope.productPrice = song.price;
+        $scope.product = {'product_id' : $scope.productID,
+                          'product_name': $scope.productTitle,
+                          'product_price': $scope.productPrice,
+                          'product_quantity': $scope.prodQuantity
+        };
+        $scope.carts.push($scope.product);
+        $http({
+          method: "POST",
+          url: "updateCart.php",
+          data: $scope.carts
+        }).then(function(data) {
+            $scope.fetchCart();
+        }, function(error) {
+          console.log(error, "error");
+        });
+
+      };
+
+
+
+      $scope.loadFirst = function(counter) {
+        if(counter == 0) {
+          $scope.removeItem(0,0);
+          $scope.fetchCart();
+        }
+        console.log(counter);
+      };
+
+
+      $scope.removeItem = function(index, id) {
+        console.log(index);
+        $scope.carts.splice(index, 1);
+        console.log($scope.carts);
+
+        $http({
+          method: "POST",
+          url: "updateCart.php",
+          data: $scope.carts
+        }).then(function(data) {
+            $scope.fetchCart();
+        }, function(error) {
+          console.log(error, "error");
+        });
+
+    }
+
+    $scope.isEmpty = false;
+
+    $scope.submitCheckout = function(id, userName) {
+      $scope.totalToPay = $scope.setTotals();
+      $scope.idUserOrder = id;
+      $scope.idUsernameOrder = userName;
+      if($scope.carts.length>0) {
+        $http({
+          method: "POST",
+          url: "checkoutCart.php",
+          data: $scope.dataCheckout = {
+            "products": $scope.carts,
+            "userData": [{
+              "id": $scope.idUserOrder,
+              "userName": $scope.idUsernameOrder,
+              "totalPayment": $scope.totalToPay
+            }]
+          }
+        }).then(function(data) {
+            console.log(data);
+            $scope.carts = [];
+            $http({
+              method: "POST",
+              url: "updateCart.php",
+              data: $scope.carts
+            }).then(function(data) {
+                $scope.fetchCart();
+            }, function(error) {
+              console.log(error, "error");
+            });
+            $window.location.reload();
+        }, function(error) {
+          console.log(error, "error");
+        });
+      } else {
+        $scope.isEmpty = true;
+        $scope.slideError();
+      }
+    }
+
+    $scope.slideError = function(){
+    $('#emptyCart').slideDown('slow');
+    $("#emptyCart").css("visibility", "visible");
+    setTimeout(function() {
+      $scope.isEmpty = false;
+      $('#emptyCart').slideUp('slow');
+    },3000);
+    }
+
+
+
+    //loadingOrders
+    $scope.loadOrders = function(id){
+      $scope.userId = id;
+      $http({
+        method: 'POST',
+        url: 'fetchOrders.php',
+        data: $scope.userId
+      }).then(function(data) {
+          $scope.orders = data.data;
+      }, function(error) {
+        console.log(error, 'cant get data.');
+      });
+    };
+
+    $scope.getStyle = function(status) {
+    if(status === "Pendent Payment") {
+      return "#fff6a3";
+    } else if(status === "Completed") {
+      return "#a8ffa3";
+    } else if(status === "Canceled") {
+      return "#ffa3a3";
+    } else if(status === "In Progress") {
+      return "#d9d9d9";
+    } else {
+      return "white";
+    }
+  }
+
+
+  $scope.getBtnOrderVisibility = function(status) {
+
+  if(status == "Pendent Payment") {
+    return "visible";
+  } else if(status == "Completed") {
+    return "hidden";
+  } else if(status == "Canceled") {
+    return "visible";
+  } else if(status == "In Progress") {
+    return "hidden";
+  } else {
+    return "hidden";
+  }
+}
+
+$scope.setOrderBtnText = function(status) {
+  if(status === "Pendent Payment") {
+    return "Pay Now";
+    console.log($scope.statusButtonText);
+  } else if(status === "Canceled") {
+    return "Repeat Order";
+  }
+}
+
+
+//messages chat functionality
+
+
+$scope.dropChat = function() {
+  $('#dropChat').slideToggle('slow');
+  $("#dropChat").css("visibility", "visible");
+}
+
 });
+
+
+
 
   //Adding song in the admin page
 

@@ -12,6 +12,7 @@
 <script src="js/angular-route.min.js"></script>
 <script src="js/myapp.js"></script>
 <script src="js/controllers/playlistController.js"></script>
+<script src="js/controllers/servicesController.js"></script>
 
 
 

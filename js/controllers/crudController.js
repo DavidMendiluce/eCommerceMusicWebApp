@@ -15,6 +15,7 @@ app.controller('crudController', function($scope, $http, $timeout) {
     modal_popup.modal('hide');
   };
 
+
   /*sets the title of the modal and the text of the submit button
   the text of the submit button will be stored as the action variable
   the action variable will be used in the insert.php file to select the query to execute,

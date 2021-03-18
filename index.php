@@ -14,26 +14,32 @@
  ?>
 
 
-  <?php
-  if(isset($_SESSION['sesion'])) {
-    $username = $_SESSION['sesion'];
-    $role =$_SESSION['role'];
-    echo '<h1>Bienvenido ,'.$username.' </h1>';
-    echo 'role: '.$role;
-    echo '<a href="logout.php">logout</a>';
 
-  } else {
-    echo 'guest';
-  }
-
-    ?>
-
-
+<!-- Select the service to purchase, either a buying a song, order a custom song, or mixing and mastering services-->
+<div class="servicesContainer">
+<ul id="servicesMenu" class="d-flex justify-content-between">
+  <li>
+    <div onclick="location.href='./index.php';"  class="serviceBackgroundBuy">
+    <a class="serviceTextBuy letterBackground ">Buy a Beat</a>
+    </div>
+  </li>
+  <li>
+    <div onclick="location.href='./custom.php';"  class="serviceBackgroundCustom">
+    <a class="serviceTextCustom">Order a Custom Beat</a>
+  </div>
+  </li>
+  <li>
+    <div onclick="location.href='./mix.php';"  class="serviceBackgroundMix">
+    <a class="serviceTextMix">Mix/Master your Beat</a>
+  </div>
+  </li>
+</ul>
+</div>
 <!--<h1 id="duration">E</h1>-->
  <!-- song container-->
- <div id="playlistPage" ng-app="myApp" ng-controller="playListController" class="containerMain row d-flex flex-column">
+ <div class="containerMain row d-flex flex-column" ng-init="initPlayer()">
     <img class="border currentImg" src="img/{{currentImage}}"/>
-    <div class="container align-self-end" id="playListRow" ng-init="loadSongs()">
+    <div class="container align-self-end" id="playListRow">
       <div class="searchBox">
       </div>
       <!--tags to order the songs by title, genre, date, length, speed and key-->
@@ -74,12 +80,16 @@
       </div>
 
   <div id="purchaseSong" class="col-3 md-3 d-flex flex-row" ng-repeat="song in (filteredItems = (songs | orderBy:[orderName])) | limitTo: 9 as orderedItems" >
-    <div  ng-click="getCurrentElement(song)" class="align-self-center songInfo">
+    <div ng-click="getCurrentElement(song)" class="align-self-center songInfo">
         <div id="songPrice">
           <h3 class="price text">{{song.price | currency}}</h3>
         </div>
+      <a ng-click="buySong(song)">
       <img id="buyItem" ng-src="img/buy.png" class="border img-responsive" width="30vh" height="30vh"/>
-      <img id="downloadItem" ng-src="img/download.png" class="border img-responsive" width="30vh" height="30vh"/>
+      </a>
+      <a ng-click="downloadSong(song)">
+      <img  id="downloadItem" ng-src="img/download.png" class="{{song.type}}" width="30vh" height="30vh">
+    </a>
     </div>
   </div>
   </div>
@@ -125,7 +135,7 @@
       </div>
   </div>
 
-
+</div>
 
 
 

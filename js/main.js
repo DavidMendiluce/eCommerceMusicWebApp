@@ -49,3 +49,44 @@ $( ".tab-arrow" ).click(function() {
         $(this).css("transform","" );
     }
 });
+//change services menu background and text on hover
+$(".serviceBackgroundBuy").hover(function () {
+   $(".serviceTextBuy").toggleClass("letterBackground");
+});
+$(".serviceBackgroundCustom").hover(function () {
+   $(".serviceTextCustom").toggleClass("letterBackground");
+});
+$(".serviceBackgroundMix").hover(function () {
+   $(".serviceTextMix").toggleClass("letterBackground");
+});
+
+
+  switch (window.location.pathname) {
+
+    case '/eCommerceMusicWebApp/index.php':
+        $('body').addClass('goldenBody');
+        break;
+    case '/eCommerceMusicWebApp/cartView.php':
+        $('body').addClass('whiteBody');
+        break;
+    case '/eCommerceMusicWebApp/orders.php':
+        $('#main').addClass('some');
+        break;
+    default:
+      console.log(window.location.pathname);
+};
+
+$(document).ready(function() {
+  $(#btnChat).on("click", function()) {
+    $.ajax({
+      url:"insertMessage.php",
+      method: "POST",
+      data: {
+        fromUser: $("#fromUser").val(),
+        toUser: "admin",
+        messsage: $("message").val("")
+      },
+      dataType: "text"
+    });
+  });
+});

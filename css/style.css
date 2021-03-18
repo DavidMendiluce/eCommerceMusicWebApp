@@ -12,6 +12,9 @@
   color: white !important;
 }
 
+#orderBtn {
+
+}
 .error span {
   color: rgb(36, 36, 36);
   padding-left: 10vh;
@@ -41,6 +44,7 @@ th {
 }
 
 td {
+  color: black !important;
   background-color: white;
 }
 
@@ -50,8 +54,15 @@ html {
   height: 150vh;
 }
 
-body {
+.goldenBody {
   background: url("../img/whiteGoldMarble.jpg");
+}
+
+.whiteBody {
+  background: white;
+}
+
+body {
   background-repeat: no-repeat;
   background-size: 1920px 3000px;
   background-position: cover;
@@ -64,15 +75,203 @@ width: 100%;
 bottom: 0;
 }
 
+
 #logo {
   height: 50px !important;
   width: 78px !important;
+}
+
+#navbarNavDropdown {
+  position: relative;
+  top: 1vh;
+  font-size: 2.3vh;
+}
+
+#navbarNavDropdown li {
+  padding-left: 2vh;
+  padding-right: 2vh;
 }
 
 #config {
 
 }
 
+#textCart {
+  position: relative;
+  top: 10vh;
+  color: black;
+}
+
+#emptyCart {
+  position: relative;
+  top: 10vh;
+  color: black;
+}
+
+#shoppingCartView {
+  position: relative;
+  top: 10vh;
+}
+
+#cartLi a {
+  position: relative;
+  bottom: 0.8vh;
+}
+
+
+  #dropChat {
+  margin-left: 139vh;
+  width: 50vh;
+  height: 50vh;
+  padding: 0 0 !important;
+}
+
+#dropChat li {
+  position: relative;
+  padding: 0 0;
+}
+
+#dropChat .panel-footer {
+  position: fixed;
+  top: 52vh;
+}
+
+#dropChat .panel-body{
+}
+
+.messagesContainer {
+  position: absolute;
+  height: 37vh;
+  width: 50vh;
+  overflow: hidden;
+}
+
+#messagesTitle{
+  padding-left: 1vh;
+  background-color: #d9d9d9;
+  border-bottom: 1px solid #c8ab4d;
+}
+
+.chatTextContainer {
+  position: relative;
+  left: 1.4vh;
+  width: 50vh;
+  height: 7.7vh;
+  border: 0.1vh solid grey;
+  border-radius: 1vh;
+}
+
+#dropChat textarea {
+  position: relative;
+  height: 7.7vh;
+  width: 40vh;
+}
+
+#btnChat {
+  position: relative;
+  left: 40vh;
+  bottom: 7.8vh;
+  width: 10vh;
+  height: 7.5vh;
+  font-size: 2vh;
+}
+
+#messageBody {
+  position: relative;
+  float: left;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+  margin-left: 0.5vh;
+  margin-right: 0.5vh;
+  border-radius: 5vh;
+  background-color: #c2f6ff;
+  max-width: 70%;
+}
+
+
+#messageBodyRight {
+  background-color: #dbdbdb;
+  float: right;
+  border-radius: 5vh;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+  margin-left: 0.5vh;
+  margin-right: 1vh;
+  max-width: 70%;
+}
+
+#messageBodyRight span {
+  position: relative;
+  padding-top: 0.5vh;
+  padding-bottom: 1vh;
+  padding-right: 2vh;
+  padding-left: 2vh;
+  display: block;
+  word-wrap: break-word;
+}
+
+#messageBody span {
+  position: relative;
+  padding-top: 0.5vh;
+  padding-bottom: 1vh;
+  padding-right: 0.5vh;
+  padding-left: 2vh;
+  display: block;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+
+#messageLi a {
+  position: relative;
+  bottom: 0.8vh;
+}
+
+.fa-shopping-cart {
+  position: relative;
+  top: 1.3vh;
+  margin-right: 1.5vh;
+}
+
+.fa-shopping-cart p {
+  position: relative;
+  bottom: 0.7vh;
+  left: 1.2vh;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5vh;
+  font-weight: 600;
+  width: 2vh;
+  height: 2vh;
+  color: white;
+  text-align: center;
+  border-radius: 5vh;
+  background: red;
+}
+
+.fa-comment {
+  position: relative;
+  top: 1.3vh;
+  margin-right: 0.7vh;
+}
+
+.fa-comment p {
+  position: relative;
+  bottom: 0.7vh;
+  left: 1.2vh;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5vh;
+  font-weight: 600;
+  width: 2vh;
+  height: 2vh;
+  color: white;
+  text-align: center;
+  border-radius: 5vh;
+  background: red;
+}
+
+.fa-user-circle-o {
+  margin-right: 0.7vh;
+}
 /*Chrome*/
 
 input[type='range'] {
@@ -117,6 +316,97 @@ input[type='range'] {
 
 #signupIndex {
 
+}
+
+.servicesContainer {
+  position: relative;
+  top: 14.5vh;
+  left: 36vh;
+  width: 42.7%;
+}
+
+#servicesMenu {
+  position: relative;
+  left: 5vh;
+}
+
+  #servicesMenu li {
+  list-style-type: none;
+  font-size: 3vh;
+}
+
+
+#servicesMenu a {
+  font-style: italic;
+  color: rgba(161, 161, 161, 1);
+}
+
+#formCustom {
+  position: relative;
+  left: 45vh;
+  top: 15vh;
+}
+
+#customTextArea {
+  width: 40%;
+  height: 30vh;
+}
+
+#customTextArea::-webkit-input-placeholder {
+  opacity: 0.5;
+}
+
+.beatDescription {
+  position: relative;
+  padding: 2vh 2vh;
+  border: 0.1vh solid #bab39e;
+  color: rgba(92, 92, 92, 1);
+  background: rgba(242, 242, 242, 1);
+  border-radius: 1vh;
+  font-size: 2vh;
+  top: 15vh;
+  left: 45vh;
+  width: 40%;
+}
+
+.aBorders {
+  border: 1px solid red;
+  padding: 2vh;
+}
+
+.serviceBackgroundBuy {
+  display: block;
+  border: 0.1vh solid rgba(180, 180, 180, 1);
+  cursor: pointer;
+  padding: 2vh;
+  background-color: rgba(237, 240, 242, 0.9);
+}
+
+.serviceBackgroundMix {
+  border: 0.1vh solid rgba(180, 180, 180, 1);
+  cursor: pointer;
+  padding: 2vh;
+  background-color: rgba(237, 240, 242, 0.9);
+}
+
+.serviceBackgroundCustom {
+  border: 0.1vh solid rgba(180, 180, 180, 1);
+  cursor: pointer;
+  padding: 2vh;
+  background-color: rgba(237, 240, 242, 0.9);
+}
+
+.serviceBackgroundBuy:hover {
+  background-color: rgba(237, 240, 242, 0.7);
+}
+
+  .letterBackground {
+  background: -webkit-linear-gradient(#bab39e, #c2981f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+  width: 10%;
+  border-bottom: 0.3vh solid grey;
 }
 
 #playListRow {
@@ -173,6 +463,7 @@ input[type='range'] {
 
 #buyItem{
   position: relative;
+  border-radius: 2vh;
   bottom: 0.4vh;
   left: 4vh;
 }
@@ -181,6 +472,11 @@ input[type='range'] {
   position: relative;
   left: 7vh;
   bottom: 0.4vh;
+}
+
+.buy {
+  opacity: 0.5;
+  cursor: auto !important;
 }
 
 .songInfo {
@@ -281,10 +577,27 @@ input[type='range'] {
   width: 160vh;
 }
 
+#btnCheckout {
+  position: relative;
+  border-radius: 1vh;
+  border: 0.1vh solid #c8ab4d;
+  color: black;
+  background-color: rgba(
+  220, 220, 220, 1);
+  left: 178vh;
+  top: 10vh;
+}
+
+#btnCheckout:hover {
+  background-color: rgba(161, 161, 161, 1);
+  border-color: white;
+  color: rgba(
+240, 240, 240);
+}
 
 .containerMain {
 
-  margin-top: 5vh;
+  margin-top: 15vh;
   margin-left: 15vh;
   width: 70%;
 }
@@ -467,5 +780,20 @@ and (max-width: 1366px)  {
   #playListSongs {
     width: 120vh;
 
+  }
+
+  #btnCheckout {
+    position: relative;
+    border-radius: 1vh;
+    border: 0.1vh solid #c8ab4d;
+    color: black;
+    background-color: rgba(
+    220, 220, 220, 1);
+    left: 50vh;
+    top: 10vh;
+  }
+
+  #orderCell {
+    color: white;
   }
 }

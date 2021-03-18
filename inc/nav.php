@@ -1,6 +1,8 @@
 <?php require 'header.php' ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light border">
+
+<div id="playlistPage" ng-app="myApp" ng-controller="playListController" ng-init="loadSongs()" >
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light border">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img id="logo" src="img/goldenLogoWiden.png"/></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
