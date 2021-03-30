@@ -1,7 +1,7 @@
 <!-- JavaScripts -->
 <!-- Paypal -->
 <script
-    src="https://www.paypal.com/sdk/js?client-id=AQbLZ9iI1n0S1bTHdAcj212BPAOsl55EoY81PP69PTd1AXWB3e5qEHbF9YB7eq2A4RA5-wZkEgstPuuU">
+    src="https://www.paypal.com/sdk/js?client-id=">
 </script>
 <!--JQuery -->
 <script src="js/jquery-3.5.1.min.js"></script>
