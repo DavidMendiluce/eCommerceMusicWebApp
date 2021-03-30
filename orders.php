@@ -20,7 +20,7 @@
        <td>{{order.userName}}</td>
        <td>{{order.date | timestampToISO | date}}</td>
        <td>{{order.total_to_pay}}</td>
-       <td id="orderCell" ng-style="{'background-color': getStyle(order.status)} ">{{order.status}}<span  ng-style="{'visibility': getBtnOrderVisibility(order.status)}"><br><br><button class="btn btn-primary" id="orderBtn">{{setOrderBtnText(order.status)}}</button></span></td>
+       <td id="orderCell" ng-style="{'background-color': getStyle(order.status)} ">{{order.status}}<span  ng-style="{'visibility': getBtnOrderVisibility(order.status)}"><br><br><button class="btn btn-primary" ng-click="orderAction()" id="orderBtn">{{setOrderBtnText(order.status)}}</button></span></td>
       </td>
      </tr>
    </table>

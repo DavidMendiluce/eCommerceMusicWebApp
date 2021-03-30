@@ -14,7 +14,7 @@ $_SESSION['refresher'] = 1;
 
 
 
-<div id="playlistPage" ng-app="myApp" ng-controller="playListController" ng-init="loadSongs(); fetchCart(); loadFirst('<?php echo $_SESSION["refresher"] ?>'); checkSession();">
+<div id="playlistPage" ng-app="myApp" ng-controller="playListController" ng-init="loadSongs(); fetchCart(); loadFirst('<?php echo $_SESSION["refresher"] ?>'); checkSession(); messageCounter();">
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
   <div class="container-fluid" >
     <a class="navbar-brand" href="./index.php"><img id="logo" src="img/goldenLogoWiden.png"/></a>
@@ -38,11 +38,11 @@ $_SESSION['refresher'] = 1;
             <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"><p>{{setQuantity()}}</p></i>Cart</a>
         </li>
         <li class="nav-item" id="messageLi">
-          <a class="nav-link" ng-click="dropChat()" data-toggle="collapse" data-target="#dropChat" aria-current="page" href="#">
-            <i class="fa fa-comment fa-lg" aria-hidden="true"><p>0</p></i>
+          <a class="nav-link" ng-click="initDropChat()" data-toggle="collapse" data-target="#dropChat" aria-current="page" href="#">
+            <i class="fa fa-comment fa-lg" aria-hidden="true"><p>{{newMesages}}</p></i>
             Messages</a>
             <!-- Chat Window -->
-            <input type="text" id="fromUser" value=<?php echo $_SESSION["sesion"]; ?> hidden>
+            <input type="text" id="fromUser" value=<?php echo $_SESSION["id"]; ?> hidden>
                         <ul class="dropdown-menu pb-chat-dropdown" id="dropChat">
                             <li>
                                 <div class="panel panel-info pb-chat-panel">
@@ -52,14 +52,7 @@ $_SESSION['refresher'] = 1;
                                         </h2>
                                     </div>
                                     <div class="panel-body">
-                                      <div class="messagesContainer">
-                                        <div id="messageBodyRight" class="form-group">
-                                          <span>Se ha matao paco de lucia dfdbdfbd hoid</span>
-                                        </div>
-                                        <br>
-                                        <div id="messageBody" class="form-group">
-                                          <span>Ya lo vi, pobre hombre, se merecia lo mejor dfbdfbdfbdf</span>
-                                        </div>
+                                      <div id="msgBody" class="messagesContainer">
                                         <?php
                                         require 'config/connection.php';
                                         $adminId = "9";
@@ -67,26 +60,30 @@ $_SESSION['refresher'] = 1;
                                         toUser = '".$adminId."') OR (fromUser = '".$adminId."' AND toUser = '".$_SESSION["id"]."')")
                                         or die("Failed to query database".mysql_error());
 
+
                                         while($chat = mysqli_fetch_assoc($chats))
                                         {
                                           if($chat["fromUser"] == $_SESSION["id"]) {
-                                            echo '<div id="messageBody" class="form-group">
-                                              <span>".$chat["message"]."</span>
+                                            echo '<div id="msgBox" class="d-flex align-items-end flex-column">
+                                            <div id="messageBodyRight" class="form-group">
+                                              <span>'.$chat["message"].'</span>
+                                            </div>
                                             </div>';
                                         } else {
-                                          echo '<div id="messageBodyRight" class="form-group">
-                                            <span>".$chat["message"]."</span>
+                                          echo '<div id="msgBox" class="d-flex align-items-start flex-column">
+                                          <div id="messageBody" class="form-group">
+                                            <span>'.$chat["message"].'</span>
+                                          </div>
                                           </div>';
                                         }
                                         }
                                          ?>
-                                        <div>
-                                    </div>
+                                       </div>
                                     <div class="panel-footer">
                                         <div class="row">
                                             <div class="chatTextContainer">
                                                 <textarea id="message" class="form-control pb-chat-textarea" placeholder="Type your message here..."></textarea>
-                                                <button id="btnChat" class="btn btn-primary"><span></span>Send</button>
+                                                <button id="btnChat" ng-click="sendMessage()" class="btn btn-primary"><span></span>Send</button>
                                             </div>
 
                                         </div>

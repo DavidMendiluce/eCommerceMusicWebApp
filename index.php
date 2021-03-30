@@ -16,6 +16,7 @@
 
 
 <!-- Select the service to purchase, either a buying a song, order a custom song, or mixing and mastering services-->
+<!--
 <div class="servicesContainer">
 <ul id="servicesMenu" class="d-flex justify-content-between">
   <li>
@@ -35,6 +36,7 @@
   </li>
 </ul>
 </div>
+-->
 <!--<h1 id="duration">E</h1>-->
  <!-- song container-->
  <div class="containerMain row d-flex flex-column" ng-init="initPlayer()">
@@ -85,10 +87,10 @@
           <h3 class="price text">{{song.price | currency}}</h3>
         </div>
       <a ng-click="buySong(song)">
-      <img id="buyItem" ng-src="img/buy.png" class="border img-responsive" width="30vh" height="30vh"/>
+      <img id="buyItem" ng-src="img/buy.png" ng-class="getClass(song.type)" width="30vh" height="30vh"/>
       </a>
       <a ng-click="downloadSong(song)">
-      <img  id="downloadItem" ng-src="img/download.png" class="{{song.type}}" width="30vh" height="30vh">
+      <img  id="downloadItem" ng-src="img/download.png" ng-class="getDownloadClass(song.type)" width="30vh" height="30vh">
     </a>
     </div>
   </div>

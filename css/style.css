@@ -8,6 +8,23 @@
   padding-bottom: 0.5vh;
 }
 
+#errorContainer {
+  visibility: hidden;
+}
+
+.registerError {
+  background-color: red;
+  border: 1px solid rgba(250, 72, 72,0.9);
+  border-radius: 5px;
+  background-color: rgba(250, 72, 72,0.5);
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+
+#errorContainer {
+  display: center;
+}
+
 #playlistPage {
   color: white !important;
 }
@@ -15,9 +32,17 @@
 #orderBtn {
 
 }
+
 .error span {
   color: rgb(36, 36, 36);
-  padding-left: 10vh;
+  padding-left: 1vh;
+
+}
+
+.registerError span {
+  padding-left: 2vh;
+  padding-right: 2vh;
+  color: rgb(36, 36, 36);
 
 }
 
@@ -136,6 +161,18 @@ bottom: 0;
   top: 52vh;
 }
 
+#dropChatAdmin {
+  width: 50vh;
+  height: 35vh;
+  padding: 0 0 !important;
+}
+
+
+#usersTable th {
+  color: black !important;
+  background-color: white !important;
+}
+
 #dropChat .panel-body{
 }
 
@@ -143,7 +180,7 @@ bottom: 0;
   position: absolute;
   height: 37vh;
   width: 50vh;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 #messagesTitle{
@@ -161,6 +198,15 @@ bottom: 0;
   border-radius: 1vh;
 }
 
+.chatTextContainerAdmin {
+  position: relative;
+  left: 0vh;
+  width: 48vh;
+  height: 6.7vh;
+  border: 0.1vh solid grey;
+  border-radius: 1vh;
+}
+
 #dropChat textarea {
   position: relative;
   height: 7.7vh;
@@ -170,19 +216,48 @@ bottom: 0;
 #btnChat {
   position: relative;
   left: 40vh;
-  bottom: 7.8vh;
+  bottom: 7.7vh;
   width: 10vh;
-  height: 7.5vh;
+  height: 7.7vh;
   font-size: 2vh;
 }
 
-#messageBody {
+
+#btnChatAdmin {
   position: relative;
+  left: 40vh;
+  bottom: 6.7vh;
+  width: 9vh;
+  height: 6.7vh;
+  font-size: 2vh;
+}
+
+#adminTableContainer {
+  background-color: white;
+  width: 30%;
+  border: 0.3vh solid grey;
+  border-radius: 1vh;
+  padding: 1vh 1vh;
+}
+
+#usersAdminTable {
+  width: 30% !important;
+  color: black !important;
+  background-color: white !important;
+}
+
+#adminChatModal{
+  visibility: hidden;
+  position: relative;
+  bottom: 62vh;
+  left: 70vh;
+  width: 50vh;
+}
+
+
+#messageBody {
+  display: block;
   float: left;
-  margin-top: 2vh;
-  margin-bottom: 1vh;
-  margin-left: 0.5vh;
-  margin-right: 0.5vh;
   border-radius: 5vh;
   background-color: #c2f6ff;
   max-width: 70%;
@@ -191,19 +266,16 @@ bottom: 0;
 
 #messageBodyRight {
   background-color: #dbdbdb;
+  display: block;
   float: right;
   border-radius: 5vh;
-  margin-top: 2vh;
-  margin-bottom: 1vh;
-  margin-left: 0.5vh;
-  margin-right: 1vh;
   max-width: 70%;
 }
 
 #messageBodyRight span {
   position: relative;
-  padding-top: 0.5vh;
-  padding-bottom: 1vh;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
   padding-right: 2vh;
   padding-left: 2vh;
   display: block;
@@ -212,15 +284,18 @@ bottom: 0;
 
 #messageBody span {
   position: relative;
-  padding-top: 0.5vh;
-  padding-bottom: 1vh;
-  padding-right: 0.5vh;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  padding-right: 2vh;
   padding-left: 2vh;
   display: block;
-  text-align: left;
   word-wrap: break-word;
 }
 
+#msgBox {
+  margin: 0 0 !important;
+  padding: 0 0!important;
+}
 
 #messageLi a {
   position: relative;
@@ -474,9 +549,34 @@ input[type='range'] {
   bottom: 0.4vh;
 }
 
-.buy {
+.fadeBuy {
   opacity: 0.5;
   cursor: auto !important;
+}
+
+.fadeDownload {
+  opacity: 0.5;
+  cursor: auto !important;
+}
+
+.showBuy {
+  position: absolute;
+  transform: scale(1);
+  transition: transform .5s;
+}
+
+.showDownload {
+  position: absolute;
+  transform: scale(1);
+  transition: transform .5s;
+}
+
+.showBuy:hover {
+  transform: scale(1.2);
+}
+
+.showDownload:hover {
+  transform: scale(1.2);
 }
 
 .songInfo {
@@ -745,6 +845,89 @@ color: #838383;
 #volume_icon {
   position: relative;
   top: 0.3vh;
+}
+
+#orderSummaryContainer {
+  border: 0.3vh solid #c8ab4d;
+  border-radius: 0.5vh;
+  padding: 2vh 2vh;
+}
+
+#orderSummaryContainer button {
+  background-color: blue;
+  color: white;
+  padding: 0.5vh 0.5vh;
+  text-align: center;
+  font-size: 3vh;
+  border-radius: 3vh;
+}
+
+#paymentPage {
+  margin-top: 30vh;
+}
+
+.floatRight{
+  float: right;
+}
+
+#pageSuccess {
+  position: relative;
+  top: 10vh;
+}
+
+#successContainer {
+
+  color: black;
+  margin-top: 10vh;
+  border: 0.1vh solid grey;
+  width: 50%;
+  border-top-right-radius: 1vh;
+  border-top-left-radius: 1vh;
+}
+
+#headerSuccess {
+  padding: 2vh 22.9vh;
+  border: 0.2vh solid #c8ab4d;
+  border-radius: 1vh;
+  background: radial-gradient(#f0f0f0, #cccccc);
+
+}
+
+#listSuccess {
+  margin-top: 5vh;
+  margin-bottom: 5vh
+}
+
+#successBox {
+  padding: 5vh 0vh;
+  width: 90vh;
+  border-top: 0.1vh solid black;
+  border-bottom: 0.1vh solid black;
+}
+
+#successBox h2 {
+  margin-top: 1vh;
+}
+
+#successBox button{
+  padding-top: 0.3vh;
+  margin-top: 1vh;
+  border-radius: 0.5vh;
+  width: 15vh;
+  background: -webkit-linear-gradient(#56585c, #001029);
+  opacity: 1;
+  height: 4vh;
+  color: white;
+  font-size: 2vh;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#successBox button:hover{
+  outline: none;
+  cursor: pointer;
+  opacity: 0.95;
+  border: 0.3vh solid #00349c;
+  box-shadow: 0 0 0.5vh #00349c;
 }
 
 /*Laptop screens*/

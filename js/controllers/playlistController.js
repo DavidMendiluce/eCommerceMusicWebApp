@@ -1,4 +1,4 @@
-app.controller('playListController', function($scope, $http, $window) {
+app.controller('playListController', function($scope, $http, $window, $interval) {
 
 
 
@@ -35,6 +35,21 @@ app.controller('playListController', function($scope, $http, $window) {
       $scope.isSessionStarted = true;
     }
 
+    $scope.getClass = function(type) {
+      if(type==="download") {
+        return "fadeBuy";
+      } else {
+        return "showBuy";
+      }
+    }
+
+    $scope.getDownloadClass = function(type) {
+      if(type==="download") {
+        return "showDownload";
+      } else {
+        return "fadeDownload";
+      }
+    }
 
     //Download songs that are free
     $scope.downloadSong = function(song) {
@@ -52,11 +67,9 @@ app.controller('playListController', function($scope, $http, $window) {
       }
     } else {
       console.log("If you want this song you have to buy it");
-
-
     }
 
-      };
+    };
     //
 
       //orderByGenre
@@ -429,6 +442,9 @@ app.controller('playListController', function($scope, $http, $window) {
       }
     }
 
+
+
+
     $scope.carts = [];
 
     $scope.cartQuantity = 1;
@@ -561,7 +577,6 @@ app.controller('playListController', function($scope, $http, $window) {
             }]
           }
         }).then(function(data) {
-            console.log(data);
             $scope.carts = [];
             $http({
               method: "POST",
@@ -569,10 +584,11 @@ app.controller('playListController', function($scope, $http, $window) {
               data: $scope.carts
             }).then(function(data) {
                 $scope.fetchCart();
+                $window.location.href = "paymentPage.php";
             }, function(error) {
               console.log(error, "error");
             });
-            $window.location.reload();
+
         }, function(error) {
           console.log(error, "error");
         });
@@ -581,6 +597,33 @@ app.controller('playListController', function($scope, $http, $window) {
         $scope.slideError();
       }
     }
+
+    $scope.orderProductsArray = [];
+
+
+    $scope.getOrderDetails = function(orderId) {
+      $scope.userIdOrder = orderId;
+      $http({
+        method: "POST",
+        url: "orderDetails.php",
+        data: $scope.userIdOrder
+      }).then(function(data) {
+          $scope.orderProductsArray = data.data;
+      }, function(error) {
+        console.log(error, "error");
+      });
+    }
+
+    $scope.setOrderTotalPrice = function() {
+        var total = 0;
+
+        for(var count = 0; count < $scope.orderProductsArray.length; count++)
+        {
+           var item = $scope.orderProductsArray[count];
+           total = total + (item.product_quantity * item.product_price);
+        }
+        return total;
+    };
 
     $scope.slideError = function(){
     $('#emptyCart').slideDown('slow');
@@ -649,18 +692,194 @@ $scope.setOrderBtnText = function(status) {
 
 //messages chat functionality
 
+$scope.initDropChat = function() {
+  $scope.dropChat();
+  $scope.readMessage();
+}
 
 $scope.dropChat = function() {
   $('#dropChat').slideToggle('slow');
   $("#dropChat").css("visibility", "visible");
 }
 
+$scope.sendMessage = function() {
+  $scope.fromUser = $("#fromUser").val();
+  $scope.toUser = 9;
+  $scope.message = $("textarea#message").val();
+  $http({
+    method: 'POST',
+    url: 'insertMessage.php',
+    data: $scope.messageData = {
+      "fromUser": $scope.fromUser,
+      "toUser": $scope.toUser,
+      "message": $scope.message
+    },
+    dataType: "text"
+  }).then(function(data) {
+    console.log(data);
+      $("#message").val("");
+  }, function(error) {
+    console.log(error, 'cant get data.');
+  });
+}
+
+//This will be fetching the messages from the database each second
+var setInterval = function() {
+  $scope.fromUser = $("#fromUser").val();
+  $scope.toUser = 9;
+  $http({
+    method: 'POST',
+    url: 'realTimeChat.php',
+    data: $scope.messageDataUpdate = {
+      "fromUser": $scope.fromUser,
+      "toUser": $scope.toUser
+    },
+    dataType: "text"
+  }).then(function(data) {
+      $("#msgBody").html(data.data);
+  }, function(error) {
+    console.log(error, 'cant get data.');
+  });
+  }
+
+  $interval(setInterval, 1000);
+  setInterval();
+
+  $scope.newMesages = 0;
+  //Messages counter
+  $scope.messageCounter = function() {
+    $scope.fromUser = $("#fromUser").val();
+    $scope.toUser = 9;
+    $http({
+      method: 'POST',
+      url: 'messagesCounter.php',
+      data:  $scope.messageDataCount = {
+        "fromUser": $scope.fromUser,
+        "toUser": $scope.toUser
+      },
+    }).then(function(data) {
+        $scope.newMesages = data.data;
+        //$scope.newMessages = data.data;
+    }, function(error) {
+      console.log(error, 'cant get data.');
+    });
+  }
+
+
+
+$scope.readMessage = function() {
+  $scope.fromUser = $("#fromUser").val();
+  $scope.toUser = 9;
+  $http({
+    method: 'POST',
+    url: 'setReaded.php',
+    data:  $scope.messageDataCount = {
+      "fromUser": $scope.fromUser,
+      "toUser": $scope.toUser
+    },
+  }).then(function(data) {
+      console.log(data.data);
+      $scope.newMesages = 0;
+  }, function(error) {
+    console.log(error, 'cant get data.');
+  });
+}
+
+//Paypal payment
+
+paypal.Buttons({
+    createOrder: function(data, actions) {
+      // This function sets up the details of the transaction, including the amount and line item details.
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: $scope.setOrderTotalPrice()
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      // This function captures the funds from the transaction.
+      return actions.order.capture().then(function(details) {
+        // This function shows a transaction success message to your buyer.
+        alert('Transaction completed by ' + details.payer.name.given_name);
+        console.log(details);
+        //create session key success to only allow the access to this page to users that have paid
+        $scope.sessionSuccess();
+        $window.location.href = "successPayment.php";
+      });
+    },
+    onCancel:function(data) {
+      alert('Transaction canceled,try again' + details.payer.name.given_name);
+    }
+  }).render('#paypal-button-container');
+
+  $scope.sessionSuccess = function() {
+    $scope.success = "paymentSuccesful";
+    $http({
+      method: 'POST',
+      url: 'setKeySuccess.php',
+      data: $scope.success
+    }).then(function(data) {
+        console.log(data);
+    }, function(error) {
+      console.log(error, 'cant get data.');
+    });
+  }
+
+
+  //load the songs from the order in the success page
+
+  $scope.successBuySongs = [];
+
+  $scope.loadBuySongsOnSuccess = function(orderId) {
+    $scope.userIdOrder = orderId;
+    $http({
+      method: "POST",
+      url: "fetchBuySongs.php",
+      data: $scope.userIdOrder
+    }).then(function(data) {
+        $scope.successBuySongs = data.data;
+    }, function(error) {
+      console.log(error, "error");
+    });
+  }
+
+  $scope.downloadBuySong = function(song) {
+      var filePath = "songs/" + song.mp3;
+      window.location.href = filePath;
+      console.log(filePath);
+      var link = document.createElement('a');
+    if (typeof link.download === 'string') {
+        link.href = filePath;
+        link.setAttribute('download', song.title);
+
+        //simulate click
+        link.click();
+    }
+
+  }
+
+  $scope.toggleError = function() {
+    $('.registerError').slideDown('slow');
+    $(".registerError").css("visibility", "visible");
+    setTimeout(function() {
+      $('.registerError').slideUp('slow');
+      $(".registerError").css("visibility", "hidden");
+    },3000);
+  }
+
+  $scope.checkErrorMsg = function(msg) {
+    if(msg === "user already exsist") {
+      $scope.toggleError();
+    } 
+  }
+
+
 });
 
 
 
-
-  //Adding song in the admin page
 
 
 //format timestamp to date

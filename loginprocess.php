@@ -40,10 +40,10 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
   $check_email = Is_email($email);
   if($check_email){
     //if it's true the query will compare the input of the user with the EMAIL in the database
-    $query_user_email = "SELECT id, name, role, password FROM users WHERE email = ?";
+    $query_user_email = "SELECT id, name, role, password FROM users WHERE email = ? AND verified = 1";
   } else {
     //if it's false the query will compare the input of the user with the NAME in the database
-    $query_user_email = "SELECT id, name, role, password FROM users WHERE name = ?";
+    $query_user_email = "SELECT id, name, role, password FROM users WHERE name = ? AND verified = 1";
   }
 
   if($new_query = $mysqli->prepare($query_user_email)) {
@@ -57,6 +57,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
       if($result->num_rows > 0){
         $data = $result->fetch_assoc();
         if(password_verify($pas, $data['password'])) {
+
           $_SESSION['sesion'] = $email;
           $_SESSION['role'] = $data['role'];
           $_SESSION['id'] = $data['id'];

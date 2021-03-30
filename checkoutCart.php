@@ -23,7 +23,6 @@
         $productQuantity = $product->product_quantity;
         $sql = "INSERT INTO product (songId, product_name, product_price, product_quantity) VALUES ('$songId','$productName','$productPrice','$productQuantity')";
         $result = mysqli_query($mysqli, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($mysqli), E_USER_ERROR);
-        echo $result;
         $currentProductId = mysqli_insert_id($mysqli);
         array_push($arrayProductsId, $currentProductId);
         $i++;
@@ -37,7 +36,6 @@
 
       $sql = "INSERT INTO orders (userId, userName, status, total_to_pay) VALUES ('$userId','$userName','$status','$totalToPay')";
       $result = mysqli_query($mysqli, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($mysqli), E_USER_ERROR);
-      echo $result;
       $orderId = mysqli_insert_id($mysqli);
 
       //insert product and order in order_has_product table which relates them
@@ -45,11 +43,12 @@
         $currrentProductId = $productId;
         $sql = "INSERT INTO order_has_products (idOrder, idProduct) VALUES ('$orderId','$productId')";
         $result = mysqli_query($mysqli, $sql) or trigger_error("Query Failed! SQL: $sql - Error: ".mysqli_error($mysqli), E_USER_ERROR);
-        echo $result;
         $currentProductId = mysqli_insert_id($mysqli);
         array_push($arrayProductsId, $currentProductId);
       }
 
+      session_start();
 
+      $_SESSION['orderId'] = $orderId;
 
  ?>

@@ -21,7 +21,30 @@
     header('Location: ../index.php');
   }
     ?>
-  <a href="../logout.php">logout</a>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+      <div class="container-fluid" >
+        <a class="navbar-brand" href="index.php"><img id="logo" src="../img/goldenLogoWiden.png"/></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="config" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i> Account
+              </a>
+              <ul class="dropdown-menu" id="configMenu">
+                <li><a class="dropdown-item" href="users.php">Users</a></li>
+                <li><a class="dropdown-item" href="../logout.php">logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br><br><br><br><br><br>
+
   <div id="successMessage" class="alert alert-success
   alert-dismissable" ng-show="success">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

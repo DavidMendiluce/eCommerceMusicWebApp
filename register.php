@@ -1,5 +1,11 @@
 <?php
     session_start();
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
+    require 'phpmailer/src/Exception.php';
+    require 'phpmailer/src/PHPMailer.php';
+    require 'phpmailer/src/SMTP.php';
     require 'inc/header.php';
 
 
@@ -28,21 +34,98 @@
       $pas = $mysqli->real_escape_string($_POST['user_password']);
       $cPas = $mysqli->real_escape_string($_POST['c_password']);
 
-      if($pas != $cPas) {
-        $msg = "Please check your Passwords";
+      $PDOMysqli = new PDO("mysql:host=localhost; dbname=ecommerce_music", "root", "");
+      $queryCheckName = "SELECT name FROM users WHERE name = '$name'";
+      $statementName = $PDOMysqli->prepare($queryCheckName);
+      $statementName->execute();
+
+
+      if($statementName->rowCount() > 0) {
+        $msg = "user already exsist";
+        echo   "<div id='errorContainer' class='d-flex justify-content-center'>
+        <div class='registerError d-flex justify-content-center'>
+                    <span>$msg</span>
+                  </div>
+                  </div>";
       }
       else {
-        $hash = password_hash($pas, PASSWORD_BCRYPT);
-        $mysqli->query("INSERT INTO users (name, email, password, role) VALUES ('$name', '$email', '$hash', 'user')");
-        $msg = "You have been registered";
+
+        if($pas != $cPas) {
+          $msg = "Please check your Passwords";
+        }
+        else {
+          $hash = password_hash($pas, PASSWORD_BCRYPT);
+          $vKey = md5(time() .$name);
+          $insert = $mysqli->query("INSERT INTO users (name, email, password, role, vKey, verified) VALUES ('$name', '$email', '$hash', 'user','$vKey',0)");
+          $msg = "You have been registered";
+
+          if($insert) {
+
+            $mail = new PHPMailer;
+
+            //Enable SMTP debugging.
+            $mail->SMTPDebug = 3;
+            //Set PHPMailer to use SMTP.
+            $mail->isSMTP();
+            //Set SMTP host name
+            $mail->Host = "smtp.gmail.com";
+            //Set this to true if SMTP host requires authentication to send email
+            $mail->SMTPAuth = true;
+            //Provide username and password
+            $mail->Username = "";
+            $mail->Password = "";
+            //If SMTP requires TLS encryption then set it
+            //$mail->SMTPSecure = "tls";
+            //Set TCP port to connect to
+            $mail->Port = 587;
+
+            $mail->From = "";
+            $mail->FromName = "";
+
+            $mail->smtpConnect(
+                array(
+                    "ssl" => array(
+                        "verify_peer" => false,
+                        "verify_peer_name" => false,
+                        "allow_self_signed" => true
+                    )
+                )
+            );
+
+            $mail->addAddress($email, $name);
+
+            $mail->isHTML(true);
+
+            $mail->Subject = "Email Verification";
+            $mail->Body = "<a href='http://localhost/eCommerceMusicWebApp/verify.php?vkey=$vKey'>Register Account</a>";
+            $mail->AltBody = "This is the plain text version of the email content";
+
+            if(!$mail->send())
+            {
+                echo "Mailer Error: " . $mail->ErrorInfo;
+            }
+            else
+            {
+                echo "Message has been sent successfully";
+            }
+
+
+
+            echo "<script>window.location.assign('confirmEmail.php')</script>";
+          } else {
+            echo $mysqli->error;
+          }
+        }
+
 
       }
+
     }
  ?>
 
 
 
-  <div class="main">
+  <div ng-app="myApp" ng-controller="playListController" ng-init="checkErrorMsg('<?php echo $msg ?>')" class="main">
     <!-- nav menu -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
@@ -67,13 +150,9 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-          <div class="error">
-            <span>Wrong username or password, please try again</span>
-          </div>
           <form method="post" action="register.php" id="formrg">
             <fieldset>
               <h3 align="center">Register</h3>
-              <?php if($msg != "") echo $msg . "<br><br>"; ?>
               <br/>
               <div class="form-group">
                 <input type="text" class="form-conytrol input-lg" placeholder="Username" name="user_name" required focus>

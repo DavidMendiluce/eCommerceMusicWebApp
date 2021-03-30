@@ -36,9 +36,10 @@ jQuery(document).on('submit','#formlg', function(event) {
 
 
 $(document).ready(function() {
-$('#config').on('click', () => {
-$("#configMenu").toggle(400);
-});
+  $('#config').on('click', () => {
+  $("#configMenu").toggle(400);
+  });
+
 });
 //arrow animation
 $( ".tab-arrow" ).click(function() {
@@ -49,6 +50,7 @@ $( ".tab-arrow" ).click(function() {
         $(this).css("transform","" );
     }
 });
+
 //change services menu background and text on hover
 $(".serviceBackgroundBuy").hover(function () {
    $(".serviceTextBuy").toggleClass("letterBackground");
@@ -75,21 +77,3 @@ $(".serviceBackgroundMix").hover(function () {
     default:
       console.log(window.location.pathname);
 };
-
-$(document).ready(function() {
-  $(#btnChat).on("click", function()) {
-    $.ajax({
-      url:"insertMessage.php",
-      method: "POST",
-      data: {
-        fromUser: $("#fromUser").val(),
-        toUser: "admin",
-        messsage: $("message").val("")
-      },
-      dataType: "text",
-      success:function(data) {
-        $("message").val();
-      }
-    });
-  });
-});

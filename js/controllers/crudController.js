@@ -1,4 +1,4 @@
-app.controller('crudController', function($scope, $http, $timeout) {
+app.controller('crudController', function($scope, $http, $timeout, $interval, $window) {
 
   $scope.sucess = false;
 
@@ -153,5 +153,121 @@ $("#successMessage").css("visibility", "hidden");
       });
     }, 200)
   };
+
+  //order table
+  $scope.initUsersTable = function() {
+    $timeout(function() {
+    $('#usersAdminTable').DataTable({
+        "order": [[ 0, "desc" ]]
+      });
+    }, 200)
+  };
+
+$scope.messageCountAdmin = 0;
+
+$scope.getVisibility = function() {
+  if(window.location.href.indexOf("toUser") > -1) {
+    return "visible";
+  } else {
+    console.log("hidden");
+    return "hidden";
+  }
+}
+
+$scope.sendMessage = function(id) {
+  $scope.fromUser = $("#fromUser").val();
+  $scope.toUser = id;
+  $scope.message = $("textarea#message").val();
+  console.log(id);
+  $http({
+    method: 'POST',
+    url: '../insertMessage.php',
+    data: $scope.messageData = {
+      "fromUser": $scope.fromUser,
+      "toUser": $scope.toUser,
+      "message": $scope.message
+    },
+    dataType: "text"
+  }).then(function(data) {
+      $("#message").val("");
+  }, function(error) {
+    console.log(error, 'cant get data.');
+  });
+}
+
+
+$scope.fetchIdMessageAdmin = function(id) {
+  $scope.currentIdMessageAdmin = id;
+  $interval(setInterval, 1000);
+  setInterval();
+
+};
+
+//This will be fetching the messages from the database each second
+var setInterval = function() {
+  $scope.fromUser = $("#fromUser").val();
+  $scope.toUser = $scope.currentIdMessageAdmin;
+  $http({
+    method: 'POST',
+    url: '../realTimeChat.php',
+    data: $scope.messageDataUpdate = {
+      "fromUser": $scope.fromUser,
+      "toUser": $scope.toUser
+    },
+    dataType: "text"
+  }).then(function(data) {
+      $("#msgBody").html(data.data);
+  }, function(error) {
+    console.log(error, 'cant get data.');
+  });
+
+}
+
+
+
+//Check for new messages from useres
+$scope.checkNewMessages = function() {
+  $scope.fromUser = $("#fromUser").val();
+    $http({
+      method: 'GET',
+      url: 'fetchUsers.php'
+    }).then(function(data) {
+        for(var i = 0;i<data.data.length; i++) {
+          $scope.toUser = data.data[i].id;
+          $http({
+            method: 'POST',
+            url: 'checkNewMessages.php',
+            data:  $scope.messageDataUpdate = {
+              "fromUser": $scope.fromUser,
+              "toUser": $scope.toUser
+            },
+          }).then(function(data) {
+          }, function(error) {
+            console.log(error, 'cant get data.');
+          });
+        }
+    }, function(error) {
+      console.log(error, 'cant get data.');
+    });
+  }
+
+  $scope.readMessage = function() {
+    $scope.fromUser = $("#fromUser").val();
+    $scope.toUser = $scope.currentIdMessageAdmin;
+    $http({
+      method: 'POST',
+      url: '../setReaded.php',
+      data:  $scope.messageDataCount = {
+        "fromUser": $scope.fromUser,
+        "toUser": $scope.toUser
+      },
+    }).then(function(data) {
+        console.log(data.data);
+    }, function(error) {
+      console.log(error, 'cant get data.');
+    });
+
+  }
+
 
 });

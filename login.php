@@ -37,8 +37,8 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-          <div class="error">
-            <span class="text">Wrong username or password, please try again</span>
+          <div class="error d-flex justify-content-center">
+            <span>Wrong username, password or account not verified. please try again and check your email</span>
           </div>
           <form role="form" action="" id="formlg">
             <fieldset>
